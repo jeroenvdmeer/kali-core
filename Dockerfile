@@ -17,8 +17,7 @@ RUN adduser --gecos "" kali --disabled-password
 RUN echo "kali:ilak" | chpasswd
 RUN usermod -aG sudo kali
 
-# Start Open SSH server
-RUN service ssh start
+# Expose port 22 for OpenSSH Server
 EXPOSE 22
 
 # Initialize Metasploit database and expose port 4444 for LPORT
@@ -27,4 +26,4 @@ VOLUME /root /var/lib/postgresql
 EXPOSE 4444
 
 WORKDIR /root
-CMD ["/bin/bash", "-c", "echo hello; sleep 100000"]
+CMD ["/bin/bash", "-c", "service ssh start; sleep 100000"]
