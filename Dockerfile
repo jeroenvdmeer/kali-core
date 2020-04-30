@@ -13,8 +13,9 @@ RUN apt -y update && apt -y full-upgrade && apt -y autoremove && apt clean
 RUN apt -y --no-install-recommends install kali-linux-core medusa metasploit-framework nmap proxychains sqlmap tor whois wpscan
 
 # Create non-root user (sudoer)
-RUN adduser --gecos "" kali sudo
+RUN adduser --gecos "" kali --disabled-password
 RUN echo "kali:ilak" | chpasswd
+RUN usermod -aG sudo kali
 
 # Start Open SSH server
 RUN systemctl start ssh
