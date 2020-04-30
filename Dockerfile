@@ -12,6 +12,13 @@ RUN apt -y update && apt -y full-upgrade && apt -y autoremove && apt clean
 # https://tools.kali.org/kali-metapackages
 RUN apt -y --no-install-recommends install kali-linux-core medusa metasploit-framework nmap proxychains sqlmap tor whois wpscan
 
+# Create non-root user (sudoer)
+RUN adduser --gecos "" kali sudo
+RUN echo "kali:ilak" | chpasswd
+
+# Start Open SSH server
+RUN systemctl start ssh
+
 # Initialize Metasploit database and expose port 4444 for LPORT
 RUN service postgresql start && msfdb init
 VOLUME /root /var/lib/postgresql
