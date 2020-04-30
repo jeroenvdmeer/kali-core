@@ -18,7 +18,7 @@ RUN echo "kali:ilak" | chpasswd
 RUN usermod -aG sudo kali
 
 # Start Open SSH server
-RUN systemctl start ssh
+RUN service ssh start
 EXPOSE 22
 
 # Initialize Metasploit database and expose port 4444 for LPORT
